@@ -62,6 +62,9 @@
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="UMS">
+      <HintPath>..\..\..\Unity-Mod-Serializer\UMS\UnityModSerializer\bin\Debug\UMS.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:\Program Files\Unity_2017.3.0f3\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
