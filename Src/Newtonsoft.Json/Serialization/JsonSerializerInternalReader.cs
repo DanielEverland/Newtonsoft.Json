@@ -799,7 +799,7 @@ namespace Newtonsoft.Json.Serialization
                     TraceWriter.Trace(TraceLevel.Verbose, JsonPosition.FormatMessage(reader as IJsonLineInfo, reader.Path, "Resolved type '{0}' to {1}.".FormatWith(CultureInfo.InvariantCulture, qualifiedTypeName, specifiedType)), null);
                 }
 
-                if (objectType != null
+                if (objectType != null && !ReferenceHandler.IsTypeReference(specifiedType)
 #if HAVE_DYNAMIC
                     && objectType != typeof(IDynamicMetaObjectProvider)
 #endif

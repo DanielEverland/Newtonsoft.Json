@@ -180,7 +180,7 @@ namespace Newtonsoft.Json.Serialization
 #endif
 
 #pragma warning disable 618
-            DefaultMembersSearchFlags = BindingFlags.Instance | BindingFlags.Public;
+            DefaultMembersSearchFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 #pragma warning restore 618
 
             _contractCache = new ThreadSafeStore<Type, JsonContract>(CreateContract);

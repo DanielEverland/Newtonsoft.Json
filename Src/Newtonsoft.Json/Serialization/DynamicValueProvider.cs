@@ -69,6 +69,18 @@ namespace Newtonsoft.Json.Serialization
                     _setter = DynamicReflectionDelegateFactory.Instance.CreateSet<object>(_memberInfo);
                 }
 
+                Type underlyingType = ReflectionUtils.GetMemberUnderlyingType(_memberInfo);
+
+                if (ReferenceHandler.IsTypeReference(value.GetType()) && !ReferenceHandler.IsTypeReference(underlyingType))
+                {
+                    ReferenceHandler.AssignObjectValue(value, underlyingType, x =>
+                    {
+                        _setter(target, x);
+                    });
+
+                    return;
+                }
+
 #if DEBUG
                 // dynamic method doesn't check whether the type is 'legal' to set
                 // add this check for unit tests

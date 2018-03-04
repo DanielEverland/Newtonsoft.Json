@@ -15,6 +15,16 @@ namespace Newtonsoft.Json
         /// </summary>
         public static Func<object, object> OnCreateReference;
 
+        /// <summary>
+        /// Called by the internal JSON serializer to determine whether a type is a reference
+        /// </summary>
+        public static Func<Type, bool> IsTypeReference;
+
+        /// <summary>
+        /// Called by the internal JSON serializer to convert Reference to an object
+        /// </summary>
+        public static Action<object, Type, Action<object>> AssignObjectValue;
+    
         internal static object GetReference(object value)
         {
             object obj = OnCreateReference?.Invoke(value);
