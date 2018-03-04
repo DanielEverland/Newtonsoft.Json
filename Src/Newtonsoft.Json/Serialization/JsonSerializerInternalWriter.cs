@@ -27,7 +27,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using UMS.Core.Types;
 #if HAVE_DYNAMIC
 using System.Dynamic;
 #endif
@@ -151,15 +150,6 @@ namespace Newtonsoft.Json.Serialization
             if (value == null)
             {
                 writer.WriteNull();
-                return;
-            }
-
-            if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()))
-            {
-                Reference reference = Reference.Create(value);
-
-                SerializeValue(writer, reference, valueContract, member, containerContract, containerProperty);
-
                 return;
             }
 
@@ -449,9 +439,9 @@ namespace Newtonsoft.Json.Serialization
         {
             if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()))
             {
-                Reference reference = Reference.Create(value);
+                object referenceObject = ReferenceHandler.GetReference(value);
 
-                SerializeObject(writer, reference, contract, member, collectionContract, containerProperty);
+                Serialize(writer, referenceObject, referenceObject.GetType());
 
                 return;
             }
