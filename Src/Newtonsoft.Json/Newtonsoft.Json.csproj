@@ -101,7 +101,4 @@
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
     <LanguageTargets>$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /y &quot;$(TargetDir)/$(TargetName).dll&quot; &quot;D:\SerializerTest\Assets\Plugins\Mod Serializer/$(TargetName).dll&quot;" />
-  </Target>
 </Project>

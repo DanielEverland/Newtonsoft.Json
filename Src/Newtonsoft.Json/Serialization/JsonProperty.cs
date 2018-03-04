@@ -300,6 +300,8 @@ namespace Newtonsoft.Json.Serialization
 
         internal void WritePropertyName(JsonWriter writer)
         {
+            UnityEngine.Debug.Log(PropertyName);
+            
             if (_skipPropertyNameEscape)
             {
                 writer.WritePropertyName(PropertyName, false);

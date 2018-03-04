@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UMS.Core.Types;
 #if HAVE_DYNAMIC
 using System.Dynamic;
 #endif
@@ -150,6 +151,15 @@ namespace Newtonsoft.Json.Serialization
             if (value == null)
             {
                 writer.WriteNull();
+                return;
+            }
+
+            if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()))
+            {
+                Reference reference = Reference.Create(value);
+
+                SerializeValue(writer, reference, valueContract, member, containerContract, containerProperty);
+
                 return;
             }
 
@@ -437,6 +447,15 @@ namespace Newtonsoft.Json.Serialization
 
         private void SerializeObject(JsonWriter writer, object value, JsonObjectContract contract, JsonProperty member, JsonContainerContract collectionContract, JsonProperty containerProperty)
         {
+            if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()))
+            {
+                Reference reference = Reference.Create(value);
+
+                SerializeObject(writer, reference, contract, member, collectionContract, containerProperty);
+
+                return;
+            }
+
             OnSerializing(writer, contract, value);
 
             _serializeStack.Add(value);
@@ -444,7 +463,7 @@ namespace Newtonsoft.Json.Serialization
             WriteObjectStart(writer, value, contract, member, collectionContract, containerProperty);
 
             int initialDepth = writer.Top;
-
+            
             for (int index = 0; index < contract.Properties.Count; index++)
             {
                 JsonProperty property = contract.Properties[index];
