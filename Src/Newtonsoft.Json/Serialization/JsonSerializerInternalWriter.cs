@@ -437,7 +437,7 @@ namespace Newtonsoft.Json.Serialization
 
         private void SerializeObject(JsonWriter writer, object value, JsonObjectContract contract, JsonProperty member, JsonContainerContract collectionContract, JsonProperty containerProperty)
         {
-            if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()))
+            if (typeof(UnityEngine.Object).IsAssignableFrom(value.GetType()) && !UnityUtilities.IsNull(value))
             {
                 object referenceObject = ReferenceHandler.GetReference(value);
 

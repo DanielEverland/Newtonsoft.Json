@@ -71,15 +71,18 @@ namespace Newtonsoft.Json.Serialization
 
                 Type underlyingType = ReflectionUtils.GetMemberUnderlyingType(_memberInfo);
 
-                if (ReferenceHandler.IsTypeReference(value.GetType()) && typeof(UnityEngine.Object).IsAssignableFrom(underlyingType))
+                if(!UnityUtilities.IsNull(value) && !UnityUtilities.IsNull(target))
                 {
-                    ReferenceHandler.AssignObjectValue(value, underlyingType, x =>
+                    if (ReferenceHandler.IsTypeReference(value.GetType()) && typeof(UnityEngine.Object).IsAssignableFrom(underlyingType))
                     {
-                        _setter(target, x);
-                    });
+                        ReferenceHandler.AssignObjectValue(value, underlyingType, x =>
+                        {
+                            _setter(target, x);
+                        });
 
-                    return;
-                }
+                        return;
+                    }
+                }                
 
 #if DEBUG
                 // dynamic method doesn't check whether the type is 'legal' to set
