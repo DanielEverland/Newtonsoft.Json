@@ -71,7 +71,7 @@ namespace Newtonsoft.Json.Serialization
 
                 Type underlyingType = ReflectionUtils.GetMemberUnderlyingType(_memberInfo);
 
-                if (ReferenceHandler.IsTypeReference(value.GetType()) && !ReferenceHandler.IsTypeReference(underlyingType))
+                if (ReferenceHandler.IsTypeReference(value.GetType()) && typeof(UnityEngine.Object).IsAssignableFrom(underlyingType))
                 {
                     ReferenceHandler.AssignObjectValue(value, underlyingType, x =>
                     {
